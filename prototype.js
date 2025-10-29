@@ -275,7 +275,7 @@ export class Croissant {
                     id: "NEW_SKIN",
                     message: "New skin arrival!"
                 };
-            } else if ((string.includes('新增') && string.includes('主题')) || (string.includes('活动') && string.includes('主题'))) {
+            } else if ((string.includes('新增') && string.includes('主题')) || (string.includes('活动') && string.includes('主题') && (string.length < 15) )) {
                 return {
                     id: "NEW_THEME",
                     message: "Upcoming theme!" 
