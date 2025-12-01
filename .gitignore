@@ -156,3 +156,6 @@ custom.css
 
 # configuration
 config.json
+
+#reference sheet
+referencesheet.json
