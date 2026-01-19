@@ -3,6 +3,7 @@ import { Bili } from './bilibili.js';
 import { setInterval } from 'timers/promises';
 import fs from 'fs/promises';
 import { PRTS } from "./prts.js";
+import pm2 from "pm2";
 
 export class Croissant {
     constructor(config, dctoken) {
@@ -23,14 +24,16 @@ export class Croissant {
         this.packageURL = '';
     }
 
-    log (message) {
+    async log (message) {
         console.log(`[${this.name}] ${message}`);
+        const channel = this.discordClient.channels.cache.get(this.config.logchannel);
+        if (channel) await channel.send(message);
     }
 
     async login() {
         await this.discordClient.login(this.discordToken);
         this.discordClient.once('ready', async (c) => {
-            this.log(`Logged in as ${c.user.tag}`);
+            await this.log(`Logged in as ${c.user.tag}`);
             const channel = this.discordClient.channels.cache.get(this.config.debugchannel);
             await channel.send(`Listening dynamics of user with buid \`${this.config.buid}\`.`);
             for await (const _ of setInterval(60000)) await this.updateStatus();
@@ -38,6 +41,9 @@ export class Croissant {
         this.discordClient.on('messageCreate', async (message) => {
             if (message.mentions.has(this.discordClient.user) && message.content.includes('about')) {
                 await message.reply(await this.about());
+            }
+            if (message.mentions.has(this.discordClient.user) && message.content.includes('quit') && this.isWhiteList(message.author.id)) {
+                await this.quit();
             }
             if (message.content.startsWith('!cr')) {
                 const text = message.content.replace('!cr', '').trim();
@@ -67,6 +73,20 @@ export class Croissant {
         });
     }
 
+    async quit () {
+        await this.log(this.config.whitelist);
+        try {
+            pm2.stop(this.name);
+        } catch (err) {
+            await this.log(err);
+        }
+    }
+
+    isWhiteList (id) {
+        if (this.config.whitelist.includes(id)) return true;
+        return false;
+    }
+
     async alert (message) {
         const channel = this.discordClient.channels.cache.get(this.config.debugchannel);
         if (channel) {
@@ -81,7 +101,7 @@ export class Croissant {
             if (permissions.allPermissions.includes('MentionEveryone')) {
                 await channel.send(`## @here ${message}`);
             } else {
-                this.log(`Cannot @here or @everyone in the channel with channel ID of ${item.forward}.`);
+                await this.log(`Cannot @here or @everyone in the channel with channel ID of ${item.forward}.`);
                 await channel.send(`## ${message}`);
             }
         }
@@ -226,7 +246,7 @@ export class Croissant {
                     await channel.send(result);
                     await this.forwardPost(item);
                 } else {
-                    this.log(`Cannot find the channel with channel ID of ${item.message}.`);
+                    await this.log(`Cannot find the channel with channel ID of ${item.message}.`);
                 }
             }
         }
@@ -245,7 +265,7 @@ export class Croissant {
                 await forwardChannel.send(`# ${mostRecentBotMessage.content}\n${messageLink}`);
             }
         } else {
-            this.log('Channel not found or is not a text channel.');
+            await this.log('Channel not found or is not a text channel.');
         }
     }
 
