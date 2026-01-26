@@ -1,0 +1,72 @@
+{
+    "versions": {
+        "0.1": "Project initialization.",
+        "0.2": "Auto-fetch Weibo contents. (deprecated)",
+        "0.3": "Fetch latest bilibili posts and post to Discord channels.",
+        "0.4": "Changed Discord message format from texts to embeds.",
+        "0.5": "Added response method to show bot description.",
+        "0.6": "Mute the first post when the bot is restarted.",
+        "0.7": "Modified config in order to send post to multiple channels.",
+        "0.8": "Modified forward message.",
+        "0.9": "Adjusted the condition to return 'about' info.",
+        "0.10": "Fixed parsing issue of bilibili content type: DYNAMIC_TYPE_ARTICLE.",
+        "0.11": "Added alert function to notice modifyer to refresh cookies.",
+        "0.12": "Modified about function to parse information of the latest version.",
+        "1.0": "Project rebuilt.",
+        "1.1": "Fixed problem that this.rawPost() would be executed multiple times.",
+        "1.2": "Fixed parsing issue of bilibili content type: DYNAMIC_TYPE_LIVE_RCMD.",
+        "1.3": "Reference sheet is added; Prefix is set to '!cr'.",
+        "1.4": "Improved the format of the reference sheet.",
+        "1.5": "Updated the allowed format of input of references; Properties are allowed to be deleted.",
+        "1.6": "Installed PRTS for communication between prototypes.",
+        "1.7": "Bilibili API protocol update.",
+        "1.8": "prototype.analyzeContentType() is updated.",
+        "1.9": "Video post differetiation method update.",
+        "1.10": "Content parsing for post type forward is available.",
+        "1.11": "Croissant.sendPostWithDynamicId() is added.",
+        "1.12": "Croissant.sendPostWithDynamicId() can be called with discord messages.",
+        "1.13": "vxbilibili.com/video is utilized.",
+        "1.14": "Data parsing of dynamic type article is changed.",
+        "1.15": "Croissant.analyzeContentType() is improved.",
+        "1.16": "Content parsing forward() is fixed.",
+        "1.17": "Content type 中奖通知 are ignored.",
+        "1.18": "PRTS connection is improved.",
+        "1.19": "Croissant.sendPost() is optimized.",
+        "1.20": "Croissant.setStatus() is added.",
+        "1.21": "Croissant's alarm for package updates is added.",
+        "1.22": "To prevent unexpected request errors while fetching package links, try operator is introduced.",
+        "1.23": "Selection logic of post type is improved.",
+        "1.24": "Force quitting Croissant is enabled ;(."
+    },
+    "channels": [
+        {
+            "message": "1244470250263810161",
+            "forward": "1017950702552764476"
+        },
+        {
+            "message": "1366750464573706300",
+            "forward": "1307931811325939722"
+        }
+    ],
+    "debugchannel": "1307931811325939722",
+    "buid": "161775300",
+    "master": "1023608069063717035",
+    "logchannel": "1462659745667219538",
+    "interval": 15000,
+    "fetchpackage": false,
+    "testchannels": [
+        {
+            "message": "1366750464573706300",
+            "forward": "1307931811325939722"
+        }
+    ],
+    "testbuid": "551987502",
+    "whitelist": [
+        "1023608069063717035",
+        "695480051256393759",
+        "890842062419812372",
+        "690540951202168902",
+        "436063009438171139",
+        "1209318360714715210"
+    ]
+}
